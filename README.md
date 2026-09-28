@@ -1,4 +1,4 @@
-# UPDATED! Beyond the Grandstand: Qualtrics Simulation Methodology and Technical Reference
+# HEEEEHAW Beyond the Grandstand: Qualtrics Simulation Methodology and Technical Reference
 
 **Course:** BA 600 001 – Consulting Studio  
 **School:** University of Michigan – Stephen M. Ross School of Business  
