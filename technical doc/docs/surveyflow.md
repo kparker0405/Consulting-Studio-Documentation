@@ -1,5 +1,5 @@
 
-## 23. Technical Appendix A: Survey Flow
+## Technical Appendix A: Survey Flow
 
 ```
 Embedded Data Initialization
