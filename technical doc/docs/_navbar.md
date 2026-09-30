@@ -1,3 +1,3 @@
 * [Schedule](schedule.md)
-* [Resources](resources.md)
+* [Resources](configurls.md)
 * [Contact](contact.md)
