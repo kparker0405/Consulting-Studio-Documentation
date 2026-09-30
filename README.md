@@ -539,42 +539,42 @@ The simulation uses sessionStorage to cache:
 
 Configuration-refresh pages reload these files before each daily level. This supports respondent returning after cllsing the browser or switching devices. 
 ## 15. Qualtrics Embedded Data
-|Field category| Title| Data type|
+|Field category| Title| Notes|
 |---|---|---|
-|Participation fields|__js_GroupMode |Numeric|
-| |__js_TeamID | Numeric|
-| | __js_TeamSeed | Numeric|
-|Configuration fields | __js_DevelopmentMode| Numeric | 
-| | __js_SettingsLoaded|  |
-| | __js_ScoringConfigLoaded| |
-| | __js_ScoringConfigVersion| |
-| | __js_ContentConfigLoaded| | 
-| | __js_ContentVersion| |
-|Score fields| __js_EnterpriseImpactScore| |
-| | __js_CriticalRigorScore| |
-| | __js_StrategicDecisivenessScore| | 
-| | __js_StakeholderTrustScore| |
-| | __js_ResourcefulnessScore | |
-| Curveball fields| __js_Curveball1ID| |
-| | __js_Curveball2ID | |
-| | __js_Curveball3ID| |
-| | __js_Curveball3Category| |
-| | __js_CurveballStatus| |
-|Strategic-state fields|__js_InitialStrategy| |
-| | __js_MidpointStrategy| |
-| | __js_CrisisStrategyResponse| |
-| | __js_FinalStrategy| |
-|Final-outcome fields|__js_FinalArchetype| |
-| |__js_EnterpriseImpactThreshold| |
-| | __js_CriticalRigorThreshold| |
-| |__js_StakeholderTrustThreshold| |
-| | __js_ArchetypeCalculated| |
-|Scoring ledger fields|__js_ScoredNodes| |
-| | __js_Scored1_1| |
-| | __js_SelectedPosition_1_1| |
-| | ----- | |
-| | __js_Scored_4_5| |
-| | __js_SelectedPosition_4_5| |
+|Participation and curveballs|__js_GroupMode|  |
+ | |__js_TeamID| |
+ | |__js_TeamSeed| |
+ | |__js_Curveball1ID| |
+ | |__js_Curveball2ID| |
+ | |__js_Curveball3ID| |
+ | |__js_Curveball3Category| |
+ | |__js_CurveballStatus| |
+ |Configuration |__js_DevelopmentMode| |
+ | |__js_ScoringConfigVersion| |
+ | |__js_ContentConfigVersion| |
+ |Scores |__js_EnterpriseImpactScore| |
+ | |__js_CriticalRigorScoreS| |
+ | |__js_StrategicDecisivenessScore| |
+ | |__js_StakeholderTrustScore| |
+ | |__js_ResourcefulnessScore| |
+ | |__js_ScoredNodes|Persistent list of nodes already scored. |
+ |Strategic State |__js_InitialStrategy| |
+ | |__js_MidpointStrategy| |
+ | |__js_CrisisStrategyResponse| |
+ | |__js_FinalStrategy| |
+ |Released |__js_Level2Unlocked| |
+ | |__js_Level3Unlocked| |
+ | |__js_Level4Unlocked| |
+ |Final outcome |__js_FinalArchetype| |
+ |Debugging |__js_Level2UnlockTimestamp| |
+ | |__js_Level3UnlockTimestamp| |
+ | |__js_Level4UnlockTimestamp| |
+ | |__js_ArchetypeCalculated| |
+
+
+
+
+
 ## 16. Development Mode
 Development mode is configured in content.json.
 
@@ -602,7 +602,7 @@ When DevelopmentMode = FALSE, students see:
 
 They do not see internal scoring or technical details.
 
-## 17. Release-Schedule Methodology##
+## 17. Release-Schedule Methodology
 Levels are released according to this schedule:
 |Level| Unlocked data/time| Time zone|
 |---|---|---|
