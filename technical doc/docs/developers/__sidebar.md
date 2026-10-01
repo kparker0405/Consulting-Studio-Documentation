@@ -1,1 +1,0 @@
-* [Testing Methodology](testing.md)
