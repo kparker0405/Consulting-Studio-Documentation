@@ -9,7 +9,7 @@ The simulation contains four levels. Each level corresponds to one phase  For th
 | 3 | Friday | Stress testing and crisis navigation | Resilience and implementation |
 | 4 | Tuesday | Final recommendation and ownership pitch | Synthesis and persuasion |
 
-### Level 1: Scope Definition and Initial Engagement
+## Level 1: Scope Definition and Initial Engagement
 
 Students make decisions about:
 
@@ -21,7 +21,7 @@ Students make decisions about:
 
 **End-of-level activity:** Wednesday decision log
 
-### Level 2: Deep Analysis and Strategic Adaptation
+## Level 2: Deep Analysis and Strategic Adaptation
 
 Before Level 2 decisions, each participant or team receives a Tourism and Regional Infrastructure curveball.
 
@@ -35,7 +35,7 @@ Students make decisions about:
 
 **End-of-level activity:** Thursday decision log
 
-### Level 3: Stress Testing and Crisis Navigation
+## Level 3: Stress Testing and Crisis Navigation
 
 Before Node 3.1, each participant or team receives an Economic and Corporate Landscape curveball.
 
@@ -48,7 +48,7 @@ Students then complete Nodes 3.2–3.5.
 
 **End-of-level activity:** Friday decision log
 
-### Level 4: Final Recommendation and Ownership Pitch
+## Level 4: Final Recommendation and Ownership Pitch
 
 Students consolidate their work into a final recommendation addressing:
 
