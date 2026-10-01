@@ -1,7 +1,8 @@
 **Development Mode**
+
 Development mode is configured in content.json.
 
-**Development mode enabled**
+### Development mode enabled
 
 When DevelopmentMode = TRUE, maintainers may see:
 * Score totals
@@ -13,7 +14,7 @@ When DevelopmentMode = TRUE, maintainers may see:
 * Final score thresholds
 * Technical diagnosticc messages
 
-**Development mode disabled**
+### Development mode disabled
 
 When DevelopmentMode = FALSE, students see:
 * Narrative content
