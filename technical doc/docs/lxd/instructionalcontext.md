@@ -1,4 +1,4 @@
-## Instructional Context
+**Instructional Context**
 
 ### Course context
 
