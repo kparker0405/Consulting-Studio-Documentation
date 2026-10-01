@@ -1,6 +1,6 @@
-## 24. Technical Appendix B: File Schemas
+**File Schemas**
 
-**Scores source**
+### Scores source
 
 ```
 NodeKey
