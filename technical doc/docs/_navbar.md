@@ -1,3 +1,3 @@
 * [Schedule](schedule.md)
-* [Resources](configurls.md)
+* [Resources](developers/appendix/configurls.md)
 * [Contact](contact.md)
