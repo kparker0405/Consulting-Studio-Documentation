@@ -1,4 +1,4 @@
-## Business Case Summary
+**Business Case Summary**
 
 ### Organization
 
