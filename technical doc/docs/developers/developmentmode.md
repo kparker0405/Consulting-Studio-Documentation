@@ -1,4 +1,4 @@
-## 16. Development Mode
+**Development Mode**
 Development mode is configured in content.json.
 
 **Development mode enabled**
