@@ -1,4 +1,4 @@
-## 8. Decision-Node Methodology
+**Decision-Node Methodology**
 
 Each decision node contains five options.
 
@@ -10,7 +10,7 @@ The options are designed to be:
 - More or less appropriate depending on context
 - Less vulnerable to obvious answer-test strategies
 
-### 8.1 Choice-design principle
+### Choice-design principle
 
 The simulation avoids using obviously poor distractors such as:
 
@@ -29,7 +29,7 @@ Instead, choices generally represent tensions such as:
 - Innovation versus implementation feasibility
 - Immediate action versus staged testing
 
-### 8.2 Choice order
+### Choice order
 
 Each Qualtrics decision question contains five choices corresponding to positions `1–5`.
 
@@ -44,5 +44,3 @@ The position must match the scoring configuration:
 | Fifth | 5 |
 
 **Choice randomization must remain disabled** unless the scoring architecture is redesigned.
-
----
