@@ -1,4 +1,4 @@
-**Decision-Node Methodology**
+**Decision Methodology**
 
 Each decision node contains five options.
 
@@ -28,19 +28,3 @@ Instead, choices generally represent tensions such as:
 - Focus versus optionality
 - Innovation versus implementation feasibility
 - Immediate action versus staged testing
-
-### Choice order
-
-Each Qualtrics decision question contains five choices corresponding to positions `1–5`.
-
-The position must match the scoring configuration:
-
-| Displayed choice | Configuration position |
-|---|---:|
-| First | 1 |
-| Second | 2 |
-| Third | 3 |
-| Fourth | 4 |
-| Fifth | 5 |
-
-**Choice randomization must remain disabled** unless the scoring architecture is redesigned.
