@@ -177,3 +177,6 @@ Record production versions here:
 * [Configuration Urls](configurls.md)
 * [Scores Conversion Script](scorescript.md)
 * [Content Conversion Script](contentscript.md)
+
+## Pre Launch Check List
+* [Testing Methodology](testing.md)
