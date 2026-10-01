@@ -1,5 +1,5 @@
-## 11. Curveball Methodology
-### 11.1 Curveball pools
+**Curveball Methodology**
+### Curveball pools
 |Pool|Category|Number of events| Placement|
 |----|------|-----|----|
 |1|Tourism and Regional Infrastructure|5|Before Level 2|
@@ -7,7 +7,7 @@
 |3A|Local Policy and Community Relations|5|After Node 3.1|
 |3B|Competitive Environment and Market Dynamics|5|After Node 3.1|
 
-### 11.2 Group assignment
+### Group assignment
 Group-mode curveballs are assigned deterministcally using the Team ID. This provides:
 - Consistency for all members of the same team
 - Balanced assignment across up to 100 groups
@@ -22,7 +22,7 @@ For Pool 2, we use a different balanced pattern so its assignment is not identif
 
 For Pool 3, odd-numbered teams are designated a curveball from the Community/Policy category, and even-numbered teams is designated a curveball from the Competition/Market category. Each event in the selected Pool 3 category appears 10 times across Teams 1-100. 
 
-### 11.3 Solo assignment
+### Solo assignment
 Solo participants receive:
 - One random event from Pool 1
 - One random event from Pool 2
@@ -31,7 +31,7 @@ Solo participants receive:
 
 The selected events are stored in embedded variables and remain fixed for the duration of the simulation. 
 
-### 11.4 Curveball content
+### Curveball content
 Curveball content is maintained outside individual Qualtrics questions. Each curveball contains:
 ```
 CurveballID
