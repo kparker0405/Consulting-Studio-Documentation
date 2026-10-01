@@ -1,4 +1,4 @@
-## Simulation Structure
+**Simulation Structure**
 
 The simulation contains four levels. Each level corresponds to one phase  For the first four days of Consulting Studio, students will experience a new “event.” Each day of class will correspond with ~one week of simulated time to allow for more believable development of the events/case.
 
