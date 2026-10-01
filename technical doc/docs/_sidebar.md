@@ -29,7 +29,7 @@
     * [Configuration Urls](developers/appendix/configurls.md)
     * [Content Conversion Script](developers/appendix/contentscript.md)
     * [Scores Conversion Script](developers/appendix/scorescript.md)
-    * [Files Schema](developers/appendix/fileschema.md)
+    * [Files Schema](developers/appendix/fileschemas.md)
    
   * Testing
     * [Content Testing Checklist](developers/testing/checklist.md)
