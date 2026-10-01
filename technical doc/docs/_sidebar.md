@@ -32,5 +32,5 @@
     * [Files Schema](developers/appendix/fileschema.md)
    
   * Testing
-    * [Content Testing Checklist](developers/testing/content_testing.md)
+    * [Content Testing Checklist](developers/testing/checklist.md)
     * [Pre-Launch Checklist](developers/testing/testing.md)
