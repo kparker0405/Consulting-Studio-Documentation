@@ -1,5 +1,6 @@
-## 18. Content-Management Workflow
-### 18.1 Editing scores
+**Content-Management Workflow**
+
+### Editing scores
 1. Open the scoring workbook
 2. Edit the Scores sheet.
 3. Export or save scores.csv.
@@ -11,7 +12,7 @@
 9. Verify the displayed configuration version.
 10. Publish the survey.
 
-### 18.2 Editing curveballs or archetypes
+### Editing curveballs or archetypes
 1. Edit the curveballs.csv, archetypes.csv, or settings.csv. 
 2. Run the content-conversion script.
 3. Generate a new content.json.
@@ -20,7 +21,7 @@
 6. Test curveball and display endings.
 7. Publish the survey.
 
-### 18.3 Editing the release schedule
+### Editing the release schedule
 1. Edit the release schedule Google Sheet. 
 It will automatically update. 
 
