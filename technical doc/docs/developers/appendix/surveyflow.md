@@ -1,5 +1,5 @@
 
-***Technical Appendix A: Survey Flow***
+***Survey Flow***
 
 ```
 Embedded Data Initialization
