@@ -1,10 +1,10 @@
-## 3. Instructional Context
+## Instructional Context
 
-### 3.1 Course context
+### Course context
 
 The simulation takes place during the opening week of BA 600. It prepares Master of Management students for a sponsored action-based learning engagement by allowing them to practice problem framing, decision-making under uncertainty, stakeholder management, and collaborative consulting behaviors.
 
-### 3.2 Student audience
+### Student audience
 
 - Program: All Winter Master of Management students
 - Approximate enrollment: [Number]
@@ -13,7 +13,7 @@ The simulation takes place during the opening week of BA 600. It prepares Master
 - Number of teams: [Number]
 - Relevant accessibility or scheduling considerations: [Description]
 
-### 3.3 Why a simulation is used
+### Why a simulation is used
 
 [Explain why the learning objectives cannot be addressed as effectively through lecture or a static written case alone.]
 
