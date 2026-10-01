@@ -1,6 +1,6 @@
-## 7. Participation Modes
+**Participation Modes**
 
-### 7.1 Group mode
+### Group mode
 
 In group mode:
 
@@ -11,7 +11,7 @@ In group mode:
 - One designated scribe should operate the Qualtrics response.
 - Other team members should participate through discussion.
 
-### 7.2 Solo mode
+### Solo mode
 
 In solo mode:
 
@@ -20,11 +20,8 @@ In solo mode:
 - The selected assignments are stored in embedded data.
 - Assignments remain fixed within that response.
 
-### 7.3 Group consistency
+### Group consistency
 
 The simulation does not provide simultaneous collaborative editing. The recommended operating procedure is:
 
 > One designated scribe advances the simulation on behalf of the group. The group discusses each decision before the scribe submits it.
-
-
----
