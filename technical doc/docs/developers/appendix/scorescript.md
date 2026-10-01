@@ -1,4 +1,4 @@
-## 26. Technical Appendix D: Scores Conversion Script
+**Scores Conversion Script**
 
 Run this code from the folder containing the CSV. You may need to install jsonlite by running:
 ```
