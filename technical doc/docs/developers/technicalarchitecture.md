@@ -1,5 +1,5 @@
-### 14. Technical Architecture
-## 14.1 Platform components
+**Technical Architecture**
+## Platform components
 |Component|Function|
 |---|---|
 |Qualtrics|Survey delivery, responses, embedded data, daily flow|
@@ -9,7 +9,8 @@
 |Google Sheets| Authoring source for simulation configuration|
 |R conversion scripts| Convert spreadsheet CSV exports into JSON|
 |Apps Scripts|Release schedule only|
-## 14.2 Configuration files
+
+## Configuration files
 scores.json
 
 Contains:
@@ -36,7 +37,7 @@ Contains:
 * The data and time the level will be unlocked
 * The timezone
 
-## 14.3 Browser storage
+## Browser storage
 The simulation uses sessionStorage to cache:
 * migsScoreConfig
 * migsScoreConfigVersion
