@@ -1,4 +1,5 @@
-***Release-Schedule Methodology***
+**Release-Schedule Methodology**
+
 Levels are released according to this schedule:
 |Level| Unlocked data/time| Time zone|
 |---|---|---|
@@ -10,7 +11,7 @@ Release logic uses the Google Apps Script server time.
 
 Development mode bypasses release restrictions.
 
-###Checkpoint behavior
+### Checkpoint behavior
 
 Before release:
 * The next level remains inaccessible.
