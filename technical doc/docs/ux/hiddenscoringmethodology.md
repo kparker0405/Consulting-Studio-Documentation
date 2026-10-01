@@ -12,7 +12,7 @@ Each decision affects one or more of five dimensions.
 | Stakeholder Trust | Ability to build credibility, alignment, and professional relationships |
 | Resourcefulness | Ability to use available resources, partnerships, pilots, and adaptive approaches effectively |
 
-### Score updates
+## Score updates
 
 For each selected choice:
 
@@ -25,7 +25,7 @@ Previous cumulative score
 Choice-specific score effect
 ```
 
-### Score range
+## Score range
 Score effects currently use:
 
 ```
@@ -33,7 +33,7 @@ Score effects currently use:
 ```
 A negative score indicates a tradeoff or risk. It does not necessarily mean that the choice is irrational or professionally indefensible. 
 
-### Student visibility
+## Student visibility
 In production mode:
 - Students do not see scores.
 - Students do not see scoring thresholds.
@@ -46,7 +46,7 @@ In development mode:
 - Configuration versions may be displayed. 
 
 ---
-### Strategic-State Variables
+## Strategic-State Variables
 Some decisions establish or updated a named strategic state.
 | State variable | Set at | Purpose|
 | ----------- | ----------- | -----------|
