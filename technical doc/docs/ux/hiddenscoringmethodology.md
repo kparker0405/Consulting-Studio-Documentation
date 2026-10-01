@@ -1,4 +1,4 @@
-## 9. Hidden Scoring Methodology
+**Hidden Scoring Methodology**
 
 Students do not see their score totals during normal production use.
 
@@ -12,7 +12,7 @@ Each decision affects one or more of five dimensions.
 | Stakeholder Trust | Ability to build credibility, alignment, and professional relationships |
 | Resourcefulness | Ability to use available resources, partnerships, pilots, and adaptive approaches effectively |
 
-### 9.1 Score updates
+### Score updates
 
 For each selected choice:
 
@@ -25,7 +25,7 @@ Previous cumulative score
 Choice-specific score effect
 ```
 
-### 9.2 Score range
+### Score range
 Score effects currently use:
 
 ```
@@ -33,7 +33,7 @@ Score effects currently use:
 ```
 A negative score indicates a tradeoff or risk. It does not necessarily mean that the choice is irrational or professionally indefensible. 
 
-### 9.3 Student visibility
+### Student visibility
 In production mode:
 - Students do not see scores.
 - Students do not see scoring thresholds.
@@ -60,4 +60,3 @@ These variables support:
 - Faculty analysis
 - Final reflection
 - Interpretation of the team's strategic path
-
