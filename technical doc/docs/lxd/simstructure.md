@@ -1,4 +1,4 @@
-## 6. Simulation Structure
+## Simulation Structure
 
 The simulation contains four levels. Each level corresponds to one phase  For the first four days of Consulting Studio, students will experience a new “event.” Each day of class will correspond with ~one week of simulated time to allow for more believable development of the events/case.
 
@@ -9,7 +9,7 @@ The simulation contains four levels. Each level corresponds to one phase  For th
 | 3 | Friday | Stress testing and crisis navigation | Resilience and implementation |
 | 4 | Tuesday | Final recommendation and ownership pitch | Synthesis and persuasion |
 
-### 6.1 Level 1: Scope Definition and Initial Engagement
+### Level 1: Scope Definition and Initial Engagement
 
 Students make decisions about:
 
@@ -21,7 +21,7 @@ Students make decisions about:
 
 **End-of-level activity:** Wednesday decision log
 
-### 6.2 Level 2: Deep Analysis and Strategic Adaptation
+### Level 2: Deep Analysis and Strategic Adaptation
 
 Before Level 2 decisions, each participant or team receives a Tourism and Regional Infrastructure curveball.
 
@@ -35,7 +35,7 @@ Students make decisions about:
 
 **End-of-level activity:** Thursday decision log
 
-### 6.3 Level 3: Stress Testing and Crisis Navigation
+### Level 3: Stress Testing and Crisis Navigation
 
 Before Node 3.1, each participant or team receives an Economic and Corporate Landscape curveball.
 
@@ -48,7 +48,7 @@ Students then complete Nodes 3.2–3.5.
 
 **End-of-level activity:** Friday decision log
 
-### 6.4 Level 4: Final Recommendation and Ownership Pitch
+### Level 4: Final Recommendation and Ownership Pitch
 
 Students consolidate their work into a final recommendation addressing:
 
@@ -59,5 +59,3 @@ Students consolidate their work into a final recommendation addressing:
 5. Final submission
 
 **End-of-level activity:** Final recommendation and team reflection
-
----
