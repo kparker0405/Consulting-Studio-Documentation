@@ -34,4 +34,4 @@ Record production versions here:
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSUcIfEVA9lHY0E7GY_rVvJm8C5OTiR4kJh0v_psnDEB1bbk5yY8SyNPiv3BqQsuoKoEoRzf1eflnT8/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
 
-[Link to edit spreadsheet](https://docs.google.com/spreadsheets/d/1r2S3P2DchtPmd6LSUihmRT2M1pZ7Ex3kiOmi-fh-n_k/edit?usp=sharing)
+[Follow this link to edit spreadsheet](https://docs.google.com/spreadsheets/d/1r2S3P2DchtPmd6LSUihmRT2M1pZ7Ex3kiOmi-fh-n_k/edit?usp=sharing)
