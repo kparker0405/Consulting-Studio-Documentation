@@ -34,16 +34,10 @@ Score effects currently use:
 A negative score indicates a tradeoff or risk. It does not necessarily mean that the choice is irrational or professionally indefensible. 
 
 ## Student visibility
-In production mode:
 - Students do not see scores.
 - Students do not see scoring thresholds.
 - Students do not receive "correct" or "incorrect" messages.
 - Consequences are communicated through narrative develpoments and the final outcome. 
-
-In development mode:
-- Current cumulative scores may be displayed. 
-- QIDs, NodeKeys, and selected positions may be displayed. 
-- Configuration versions may be displayed. 
 
 ---
 ## Strategic-State Variables
