@@ -13,8 +13,8 @@
   
 * User Experience
   * [Participation Modes](ux/participationmodes.md)
-  * [Decision Node Methodology](ux/decisionnodemethodology.md)
   * [Hidden Score Methodology](ux/hiddenscoringmethodology.md)
   * [Curveball Methodology](ux/curveballmethodology.md)
+  * [Archetype Methodology](ux/archetypemethodology.md)
   * [Decision and Recap Log](ux/decisionlog.md)
 
