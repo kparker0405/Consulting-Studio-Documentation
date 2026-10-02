@@ -18,4 +18,3 @@
   * [Curveball Methodology](ux/curveballmethodology.md)
   * [Decision and Recap Log](ux/decisionlog.md)
 
-* [For Developers](developers/TOC.md)
