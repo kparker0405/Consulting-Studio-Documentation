@@ -10,6 +10,23 @@
 |R conversion scripts| Convert spreadsheet CSV exports into JSON|
 |Apps Scripts|Release schedule only|
 
+### Choice order
+
+Each Qualtrics decision question contains five choices corresponding to positions `1–5`.
+
+The position must match the scoring configuration:
+
+| Displayed choice | Configuration position |
+|---|---:|
+| First | 1 |
+| Second | 2 |
+| Third | 3 |
+| Fourth | 4 |
+| Fifth | 5 |
+
+**Choice randomization must remain disabled** unless the scoring architecture is redesigned.
+
+
 ## Configuration files
 scores.json
 
