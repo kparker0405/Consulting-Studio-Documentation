@@ -6,6 +6,8 @@
   * [Instructional Context](lxd/instructionalcontext.md)
   * [Learning Objectives](lxd/learningobjectives.md)
   * [Simulation Structure](lxd/simstructure.md)
+  * [Strategic-State Variables](lxd/statevariableobjectives.md)
+  * [Archetypes](lxd/archetypes.md)
   
 * User Experience
   * [Participation Modes](ux/participationmodes.md)
