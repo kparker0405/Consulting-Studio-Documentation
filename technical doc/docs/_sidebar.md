@@ -1,9 +1,5 @@
 * [Home](markdown.md)
-* Quick Start
-  * [Business Case](lxd/businesscase.md)
-  * [Instructional Context](lxd/instructionalcontext.md)
-  * [Learning Objectives](lxd/learningobjectives.md)
-    
+   
 * Learning Design
   * [Business Case](lxd/businesscase.md)
   * [Decision Methodology](lxd/decisionmethodology.md)
