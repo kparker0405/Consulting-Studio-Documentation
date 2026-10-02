@@ -1,15 +1,15 @@
-  * [Content Workflow](developers/contentworkflow.md)
-  * [Development Mode](developers/developmentmode.md)
-  * [Release Schedule Methodology](developers/releasemethodology.md)
-  * [Technical Architecture](developers/technicalarchitecture.md)
-  * [Troubleshooting Procedures](developers/recovery.md)
+  * [Content Workflow](contentworkflow.md)
+  * [Development Mode](developmentmode.md)
+  * [Release Schedule Methodology](releasemethodology.md)
+  * [Technical Architecture](technicalarchitecture.md)
+  * [Troubleshooting Procedures](recovery.md)
   
   * Technical Appendix
-    * [Survey Flow](developers/appendix/surveyflow.md)
-    * [Configuration Urls](developers/appendix/configurls.md)
-    * [Content Conversion Script](developers/appendix/contentscript.md)
-    * [Scores Conversion Script](developers/appendix/scorescript.md)
-    * [Files Schema](developers/appendix/fileschemas.md)
+    * [Survey Flow](appendix/surveyflow.md)
+    * [Configuration Urls](appendix/configurls.md)
+    * [Content Conversion Script](appendix/contentscript.md)
+    * [Scores Conversion Script](appendix/scorescript.md)
+    * [Files Schema](appendix/fileschemas.md)
    
   * Testing
     * [Content Testing Checklist](developers/testing/checklist.md)
