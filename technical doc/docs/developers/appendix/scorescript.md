@@ -23,7 +23,9 @@ required_columns <- c(
   "StakeholderTrust",
   "Resourcefulness",
   "StateField",
-  "StateValue"
+  "StateValue",
+  "Title",
+  "Body"
 )
 
 missing_columns <- setdiff(
@@ -62,7 +64,9 @@ for (row_number in seq_len(nrow(scores))) {
   ) {
     ""
   } else {
-    trimws(as.character(row$StateField))
+    trimws(
+      as.character(row$StateField)
+    )
   }
 
   state_value <- if (
@@ -70,7 +74,29 @@ for (row_number in seq_len(nrow(scores))) {
   ) {
     ""
   } else {
-    trimws(as.character(row$StateValue))
+    trimws(
+      as.character(row$StateValue)
+    )
+  }
+
+  title <- if (
+    is.na(row$Title)
+  ) {
+    ""
+  } else {
+    trimws(
+      as.character(row$Title)
+    )
+  }
+
+  body <- if (
+    is.na(row$Body)
+  ) {
+    ""
+  } else {
+    trimws(
+      as.character(row$Body)
+    )
   }
 
   scores_by_qid[[qid]][[position]] <- list(
@@ -99,7 +125,10 @@ for (row_number in seq_len(nrow(scores))) {
     ),
 
     stateField = state_field,
-    stateValue = state_value
+    stateValue = state_value,
+
+    title = title,
+    body = body
   )
 }
 
