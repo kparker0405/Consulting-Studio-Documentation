@@ -1,4 +1,4 @@
-## Archetypes
+**Archetypes**
 The simulation produces one of four ending archetypes. 
 |Archetype| General interpretation|
 |-----|-----|
