@@ -1,4 +1,4 @@
-# 💻 <i class="fa-solid fa-baseball-bat-ball" style="color: rgb(255, 212, 59);"></i>
+# <i class="fa-solid fa-baseball-bat-ball"></i>
 
 # Consulting Studio Documentation
 
