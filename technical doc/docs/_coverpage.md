@@ -4,5 +4,6 @@
 
 > ***Beyond the Grandstand Simulation
 
-[For Instructors](#my-open-publishing-space)
-[For Developers](https://github.com/hibbitts-design/docsify-open-publishing-starter-kit)
+[Learning Design](lxd/learningdesign.md)
+[User Experience](ux/userexperience.md)
+[For Developers](developers/TOC.md)
