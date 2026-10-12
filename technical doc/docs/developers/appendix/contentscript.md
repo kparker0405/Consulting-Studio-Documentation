@@ -31,6 +31,14 @@ settings <- read.csv(
   na.strings = c("", "NA")
 )
 
+node_content <- read.csv(
+  "nodetitle_body.csv",
+  stringsAsFactors = FALSE,
+  check.names = FALSE,
+  fileEncoding = "UTF-8-BOM",
+  na.strings = c("", "NA")
+)
+
 
 # ============================================================
 # VALIDATE COLUMNS
@@ -57,6 +65,12 @@ required_setting_columns <- c(
   "Setting",
   "Value",
   "Active"
+)
+
+required_node_content_columns <- c(
+  "QID",
+  "Title",
+  "Body"
 )
 
 validate_columns <- function(
@@ -101,6 +115,12 @@ validate_columns(
   "settings.csv"
 )
 
+validate_columns(
+  node_content,
+  required_node_content_columns,
+  "nodetitle_body.csv"
+)
+
 
 # ============================================================
 # HELPERS
@@ -138,6 +158,48 @@ is_truthy <- function(value) {
   )
 }
 
+required_text <- function(
+  value,
+  field_name,
+  row_number,
+  filename
+) {
+  if (
+    length(value) == 0L ||
+    is.na(value)
+  ) {
+    stop(
+      paste0(
+        filename,
+        " row ",
+        row_number,
+        " has a blank ",
+        field_name,
+        "."
+      )
+    )
+  }
+
+  cleaned <- trimws(
+    as.character(value)
+  )
+
+  if (!nzchar(cleaned)) {
+    stop(
+      paste0(
+        filename,
+        " row ",
+        row_number,
+        " has a blank ",
+        field_name,
+        "."
+      )
+    )
+  }
+
+  cleaned
+}
+
 
 # ============================================================
 # FILTER ACTIVE RECORDS
@@ -172,6 +234,9 @@ settings <- settings[
   ,
   drop = FALSE
 ]
+
+# nodetitle_body.csv has no Active column, so every valid
+# row is included.
 
 
 # ============================================================
@@ -297,6 +362,58 @@ archetype_records <- lapply(
 
 
 # ============================================================
+# BUILD NODE CONTENT BY QID
+# ============================================================
+
+if (nrow(node_content) == 0L) {
+  stop(
+    "nodetitle_body.csv contains no rows."
+  )
+}
+
+nodes_by_qid <- list()
+
+for (i in seq_len(nrow(node_content))) {
+  row <- node_content[i, ]
+
+  qid <- required_text(
+    row$QID[[1]],
+    "QID",
+    i + 1L,
+    "nodetitle_body.csv"
+  )
+
+  title <- required_text(
+    row$Title[[1]],
+    "Title",
+    i + 1L,
+    "nodetitle_body.csv"
+  )
+
+  body <- required_text(
+    row$Body[[1]],
+    "Body",
+    i + 1L,
+    "nodetitle_body.csv"
+  )
+
+  if (!is.null(nodes_by_qid[[qid]])) {
+    stop(
+      paste0(
+        "nodetitle_body.csv contains duplicate QID: ",
+        qid
+      )
+    )
+  }
+
+  nodes_by_qid[[qid]] <- list(
+    title = title,
+    body = body
+  )
+}
+
+
+# ============================================================
 # WRITE CONTENT.JSON
 # ============================================================
 
@@ -316,7 +433,9 @@ output <- list(
 
   curveballs = curveball_records,
 
-  archetypes = archetype_records
+  archetypes = archetype_records,
+
+  nodesByQID = nodes_by_qid
 )
 
 jsonlite::write_json(
@@ -335,6 +454,8 @@ cat(
   length(curveball_records),
   "\nArchetypes:",
   length(archetype_records),
+  "\nNode questions:",
+  length(nodes_by_qid),
   "\n"
 )
 ```
