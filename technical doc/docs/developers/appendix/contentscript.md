@@ -57,7 +57,11 @@ required_curveball_columns <- c(
 required_archetype_columns <- c(
   "ArchetypeID",
   "Title",
-  "Body",
+  "Philosophy",
+  "Core Strengths",
+  "Inherent Strengths",
+  "Midpoint Diagnostic Text",
+  "Final Debrief Text",
   "Active"
 )
 
@@ -96,30 +100,6 @@ validate_columns <- function(
     )
   }
 }
-
-validate_columns(
-  curveballs,
-  required_curveball_columns,
-  "curveballs.csv"
-)
-
-validate_columns(
-  archetypes,
-  required_archetype_columns,
-  "archetypes.csv"
-)
-
-validate_columns(
-  settings,
-  required_setting_columns,
-  "settings.csv"
-)
-
-validate_columns(
-  node_content,
-  required_node_content_columns,
-  "nodetitle_body.csv"
-)
 
 
 # ============================================================
@@ -202,6 +182,35 @@ required_text <- function(
 
 
 # ============================================================
+# VALIDATE FILE COLUMNS
+# ============================================================
+
+validate_columns(
+  curveballs,
+  required_curveball_columns,
+  "curveballs.csv"
+)
+
+validate_columns(
+  archetypes,
+  required_archetype_columns,
+  "archetypes.csv"
+)
+
+validate_columns(
+  settings,
+  required_setting_columns,
+  "settings.csv"
+)
+
+validate_columns(
+  node_content,
+  required_node_content_columns,
+  "nodetitle_body.csv"
+)
+
+
+# ============================================================
 # FILTER ACTIVE RECORDS
 # ============================================================
 
@@ -234,9 +243,6 @@ settings <- settings[
   ,
   drop = FALSE
 ]
-
-# nodetitle_body.csv has no Active column, so every valid
-# row is included.
 
 
 # ============================================================
@@ -289,36 +295,40 @@ curveball_records <- lapply(
     row <- curveballs[i, ]
 
     list(
-      curveballID = trimws(
-        as.character(
-          row$CurveballID[[1]]
-        )
+      curveballID = required_text(
+        row$CurveballID[[1]],
+        "CurveballID",
+        i + 1L,
+        "curveballs.csv"
       ),
 
       poolNumber = as.integer(
         row$PoolNumber[[1]]
       ),
 
-      category = trimws(
-        as.character(
-          row$Category[[1]]
-        )
+      category = required_text(
+        row$Category[[1]],
+        "Category",
+        i + 1L,
+        "curveballs.csv"
       ),
 
       poolPosition = as.integer(
         row$PoolPosition[[1]]
       ),
 
-      title = trimws(
-        as.character(
-          row$Title[[1]]
-        )
+      title = required_text(
+        row$Title[[1]],
+        "Title",
+        i + 1L,
+        "curveballs.csv"
       ),
 
-      body = trimws(
-        as.character(
-          row$Body[[1]]
-        )
+      body = required_text(
+        row$Body[[1]],
+        "Body",
+        i + 1L,
+        "curveballs.csv"
       ),
 
       active = TRUE
@@ -331,28 +341,151 @@ curveball_records <- lapply(
 # BUILD ARCHETYPES
 # ============================================================
 
+expected_archetype_ids <- c(
+  "archetype_egs",
+  "archetype_cas",
+  "archetype_pis",
+  "archetype_yvm",
+  "archetype_ua"
+)
+
+if (nrow(archetypes) != 5L) {
+  stop(
+    paste0(
+      "Expected 5 active archetypes but found ",
+      nrow(archetypes),
+      "."
+    )
+  )
+}
+
+actual_archetype_ids <- vapply(
+  seq_len(nrow(archetypes)),
+  function(i) {
+    required_text(
+      archetypes$ArchetypeID[[i]],
+      "ArchetypeID",
+      i + 1L,
+      "archetypes.csv"
+    )
+  },
+  character(1)
+)
+
+duplicate_archetype_ids <- unique(
+  actual_archetype_ids[
+    duplicated(actual_archetype_ids)
+  ]
+)
+
+if (length(duplicate_archetype_ids) > 0L) {
+  stop(
+    paste0(
+      "archetypes.csv contains duplicate IDs: ",
+      paste(
+        duplicate_archetype_ids,
+        collapse = ", "
+      )
+    )
+  )
+}
+
+missing_archetype_ids <- setdiff(
+  expected_archetype_ids,
+  actual_archetype_ids
+)
+
+unexpected_archetype_ids <- setdiff(
+  actual_archetype_ids,
+  expected_archetype_ids
+)
+
+if (length(missing_archetype_ids) > 0L) {
+  stop(
+    paste0(
+      "archetypes.csv is missing: ",
+      paste(
+        missing_archetype_ids,
+        collapse = ", "
+      )
+    )
+  )
+}
+
+if (length(unexpected_archetype_ids) > 0L) {
+  stop(
+    paste0(
+      "archetypes.csv has unexpected IDs: ",
+      paste(
+        unexpected_archetype_ids,
+        collapse = ", "
+      )
+    )
+  )
+}
+
+archetypes <- archetypes[
+  match(
+    expected_archetype_ids,
+    actual_archetype_ids
+  ),
+  ,
+  drop = FALSE
+]
+
 archetype_records <- lapply(
   seq_len(nrow(archetypes)),
   function(i) {
     row <- archetypes[i, ]
 
     list(
-      archetypeID = trimws(
-        as.character(
-          row$ArchetypeID[[1]]
-        )
+      archetypeID = required_text(
+        row$ArchetypeID[[1]],
+        "ArchetypeID",
+        i + 1L,
+        "archetypes.csv"
       ),
 
-      title = trimws(
-        as.character(
-          row$Title[[1]]
-        )
+      title = required_text(
+        row$Title[[1]],
+        "Title",
+        i + 1L,
+        "archetypes.csv"
       ),
 
-      body = trimws(
-        as.character(
-          row$Body[[1]]
-        )
+      philosophy = required_text(
+        row$Philosophy[[1]],
+        "Philosophy",
+        i + 1L,
+        "archetypes.csv"
+      ),
+
+      coreStrengths = required_text(
+        row[["Core Strengths"]][[1]],
+        "Core Strengths",
+        i + 1L,
+        "archetypes.csv"
+      ),
+
+      inherentStrengths = required_text(
+        row[["Inherent Strengths"]][[1]],
+        "Inherent Strengths",
+        i + 1L,
+        "archetypes.csv"
+      ),
+
+      midpointDiagnosticText = required_text(
+        row[["Midpoint Diagnostic Text"]][[1]],
+        "Midpoint Diagnostic Text",
+        i + 1L,
+        "archetypes.csv"
+      ),
+
+      finalDebriefText = required_text(
+        row[["Final Debrief Text"]][[1]],
+        "Final Debrief Text",
+        i + 1L,
+        "archetypes.csv"
       ),
 
       active = TRUE
@@ -457,6 +590,7 @@ cat(
   "\nNode questions:",
   length(nodes_by_qid),
   "\n"
+)
 )
 ```
 
