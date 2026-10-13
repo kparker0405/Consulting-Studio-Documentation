@@ -59,7 +59,7 @@ required_archetype_columns <- c(
   "Title",
   "Philosophy",
   "Core Strengths",
-  "Inherent Strengths",
+  "Inherent Strategic Trade-off",
   "Midpoint Diagnostic Text",
   "Final Debrief Text",
   "Active"
@@ -467,9 +467,9 @@ archetype_records <- lapply(
         "archetypes.csv"
       ),
 
-      inherentStrengths = required_text(
-        row[["Inherent Strengths"]][[1]],
-        "Inherent Strengths",
+      inherentStrategicTradeoff = required_text(
+        row[["Strategic Trade-off"]][[1]],
+        "Inherent Strategic Trade-off",
         i + 1L,
         "archetypes.csv"
       ),
