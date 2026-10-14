@@ -494,11 +494,11 @@ curveball_records <- lapply(
 # ============================================================
 
 expected_archetype_ids <- c(
-  "archetype_egs",
-  "archetype_cas",
-  "archetype_pis",
-  "archetype_yvm",
-  "archetype_ua"
+  "archetype_a",
+  "archetype_b",
+  "archetype_c",
+  "archetype_d",
+  "archetype_e"
 )
 
 if (nrow(archetypes) != 5L) {
