@@ -2,8 +2,6 @@
    
 * Learning Design
   * [Business Case](lxd/businesscase.md)
-  * [Instructional Context](lxd/instructionalcontext.md)
-  * [Learning Objectives](lxd/learningobjectives.md)
   * [Simulation Structure](lxd/simstructure.md)
   * [Decision Methodology](lxd/decisionmethodology.md)
   * [Scoring Dimensions](lxd/scoredimensions.md)
