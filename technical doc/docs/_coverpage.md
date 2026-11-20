@@ -1,4 +1,4 @@
-# <img src="logo.png" alt="Ghosts Logo" width="200" height="auto">
+<img src="logo.png" alt="Ghosts Logo" style="width:200px; height:auto;">
 
 # Consulting Studio Documentation
 
