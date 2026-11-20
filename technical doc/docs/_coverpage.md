@@ -1,6 +1,6 @@
 <img src="logo.png" alt="Ghosts Logo" style="width:200px; height:auto;">
 
-# Consulting Studio Documentation
+# Consulting Studio Documentation HERE
 
 > ***Beyond the Grandstand Simulation
 
