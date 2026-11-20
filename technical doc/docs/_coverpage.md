@@ -1,4 +1,4 @@
-# <i class="fa-solid fa-baseball-bat-ball"></i>
+# <img src="logo.png" alt="Ghosts Logo" width="200" height="auto">
 
 # Consulting Studio Documentation
 
