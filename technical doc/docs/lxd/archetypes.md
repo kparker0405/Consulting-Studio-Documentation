@@ -1,4 +1,6 @@
-# Archetypes
+# Strategic Profiles and Archetypes
+
+Strategic profiles help participants reflect on how their decisions shaped their consulting approach. They describe decision patterns.
 
 Archetypes summarize patterns in participants’ decisions across the simulation. They provide a framework for reflection—not a ranking of teams or a direct measure of consulting ability.
 
@@ -24,7 +26,7 @@ The diagnostic identifies:
 - A strength to preserve
 - A tradeoff to monitor during disruption
 
-It is not a directive to change strategy. Participants should evaluate whether their emerging approach remains appropriate.
+Participants should evaluate whether their emerging approach remains appropriate.
 
 ## Final Debrief
 
