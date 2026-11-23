@@ -1,5 +1,9 @@
 ## <i class="fa-solid fa-code"></i> For Developers
 
+* Learning Design
+  * [Business Case](lxd/businesscase.md)
+  * [Simulation Structure](lxd/simstructure.md)
+
   * [Content Workflow](contentworkflow.md)
   * [Development Mode](developmentmode.md)
   * [Release Schedule Methodology](releasemethodology.md)
