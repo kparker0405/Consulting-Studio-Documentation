@@ -6,7 +6,7 @@ Each event appears as a newsflash containing a title and description, followed b
 
 ## Group and Sandbox Modes
 
-**Group mode:** The Team ID determines the assigned event through a repeating 16-record sequence. Teams 1–16 receive records 1–16; Team 17 receives record 1 again. Different teams may therefore receive the same event.
+**Group mode:** The Team ID determines the assigned event through a repeating 16-record sequence. 
 
 **Sandbox mode:** Each new playthrough receives a random assignment. Refreshing or resuming the same response should preserve that assignment.
 
