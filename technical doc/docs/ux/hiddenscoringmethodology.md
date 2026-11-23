@@ -55,15 +55,3 @@ Exact ties use a documented tie-breaker.
 The midpoint diagnostic uses decisions completed through that point. The final classification uses the completed engagement.
 
 Both identify strategic tendencies and tradeoffs. A team’s final approach may differ from its midpoint profile.
-
-## Faculty Calibration
-
-Target profiles and qualification thresholds require faculty review. Before launch:
-
-- Independently score choices using the rubric.
-- Discuss rating differences of two or more points.
-- Document the rationale for agreed scores.
-- Test intended archetype paths, mixed profiles, and near-threshold cases.
-- Confirm that outcomes support a credible instructional debrief.
-
-Example target values are starting points, not validated measures of consulting performance.
