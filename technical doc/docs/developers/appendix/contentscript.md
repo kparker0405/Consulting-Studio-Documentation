@@ -1,100 +1,101 @@
 **Content Conversion Script**
 
 ```
-
 library(jsonlite)
 
 # ============================================================
 # HELPERS
 # ============================================================
 
-# Convert a value to valid UTF-8.
-#
-# The CSV is expected to be UTF-8, but the fallback handles
-# characters commonly introduced by Excel or Word.
-clean_utf8 <- function(value) {
-  if (
-    length(value) == 0L ||
-    is.na(value)
-  ) {
-    return(NA_character_)
+# Read the entire file using one consistent encoding.
+# Try UTF-8 first, then Windows-1252.
+# Do not silently discard unreadable characters.
+read_configuration_csv <- function(filename) {
+  if (!file.exists(filename)) {
+    stop("File not found: ", filename, call. = FALSE)
   }
 
-  value <- as.character(value)
+  file_size <- file.info(filename)$size
 
-  # First, test whether the value is already valid UTF-8.
-  converted <- iconv(
-    value,
+  if (is.na(file_size) || file_size == 0) {
+    stop(filename, " is empty.", call. = FALSE)
+  }
+
+  raw_bytes <- readBin(
+    filename,
+    what = "raw",
+    n = file_size
+  )
+
+  # Remove a UTF-8 byte-order mark, if present.
+  if (
+    length(raw_bytes) >= 3L &&
+    identical(
+      raw_bytes[1:3],
+      as.raw(c(239, 187, 191))
+    )
+  ) {
+    raw_bytes <- raw_bytes[-(1:3)]
+  }
+
+  original_text <- rawToChar(raw_bytes)
+
+  text <- iconv(
+    original_text,
     from = "UTF-8",
     to = "UTF-8",
     sub = NA
   )
 
-  # If not, try the common Windows/Excel encoding.
-  if (is.na(converted)) {
-    converted <- iconv(
-      value,
+  if (is.na(text)) {
+    message(
+      filename,
+      ": UTF-8 decoding failed; trying Windows-1252."
+    )
+
+    text <- iconv(
+      original_text,
       from = "windows-1252",
       to = "UTF-8",
-      sub = ""
+      sub = NA
     )
   }
 
-  Encoding(converted) <- "UTF-8"
+  if (is.na(text)) {
+    stop(
+      filename,
+      " contains unreadable characters. ",
+      "Save it as CSV UTF-8 and try again.",
+      call. = FALSE
+    )
+  }
 
-  converted
-}
+  connection <- textConnection(text)
+  on.exit(close(connection), add = TRUE)
 
-
-# Clean every character column in a data frame.
-clean_data_frame_utf8 <- function(data) {
-  data[] <- lapply(
-    data,
-    function(column) {
-      if (!is.character(column)) {
-        return(column)
-      }
-
-      vapply(
-        column,
-        clean_utf8,
-        character(1)
-      )
-    }
+  # Read every column as text to preserve IDs and formatting.
+  data <- utils::read.csv(
+    connection,
+    stringsAsFactors = FALSE,
+    check.names = TRUE,
+    colClasses = "character",
+    strip.white = TRUE,
+    na.strings = "",
+    comment.char = ""
   )
+
+  if (anyDuplicated(names(data))) {
+    stop(
+      filename,
+      " contains duplicate column names.",
+      call. = FALSE
+    )
+  }
+
+  # Record source row numbers before filtering or sorting.
+  data$.csv_row <- seq_len(nrow(data)) + 1L
 
   data
-}
-
-
-# Read a CSV, trying UTF-8 first and then Windows-1252.
-read_configuration_csv <- function(filename) {
-  data <- tryCatch(
-    read.csv(
-      filename,
-      stringsAsFactors = FALSE,
-      check.names = TRUE,
-      fileEncoding = "UTF-8-BOM",
-      na.strings = c("", "NA")
-    ),
-    error = function(error) {
-      message(
-        filename,
-        " could not be read as UTF-8; ",
-        "trying Windows-1252."
-      )
-
-      read.csv(
-        filename,
-        stringsAsFactors = FALSE,
-        check.names = TRUE,
-        fileEncoding = "windows-1252",
-        na.strings = c("", "NA")
-      )
-    }
-  )
-
-  clean_data_frame_utf8(data)
 }
 
 
@@ -110,21 +111,16 @@ validate_columns <- function(
 
   if (length(missing_columns) > 0L) {
     stop(
-      paste0(
-        filename,
-        " is missing these exact columns: ",
-        paste(
-          missing_columns,
-          collapse = ", "
-        ),
-        "\nR found these columns instead: ",
-        paste(
-          names(data),
-          collapse = ", "
-        )
-      )
+      filename,
+      " is missing these columns: ",
+      paste(missing_columns, collapse = ", "),
+      "\nR found: ",
+      paste(names(data), collapse = ", "),
+      call. = FALSE
     )
   }
+
+  invisible(TRUE)
 }
 
 
@@ -134,100 +130,73 @@ required_text <- function(
   row_number,
   filename
 ) {
-  value <- clean_utf8(value)
-
   if (
-    length(value) == 0L ||
-    is.na(value)
+    length(value) != 1L ||
+    is.na(value) ||
+    !nzchar(trimws(as.character(value)))
   ) {
     stop(
-      paste0(
-        filename,
-        " row ",
-        row_number,
-        " has a blank or unreadable ",
-        field_name,
-        "."
-      )
+      filename,
+      " row ",
+      row_number,
+      " has a blank ",
+      field_name,
+      ".",
+      call. = FALSE
     )
   }
 
-  value <- trimws(value)
-
-  if (!nzchar(value)) {
-    stop(
-      paste0(
-        filename,
-        " row ",
-        row_number,
-        " has a blank ",
-        field_name,
-        "."
-      )
-    )
-  }
-
-  value
+  trimws(as.character(value))
 }
 
 
 optional_text <- function(value) {
-  value <- clean_utf8(value)
-
   if (
-    length(value) == 0L ||
+    length(value) != 1L ||
     is.na(value)
   ) {
     return("")
   }
 
-  trimws(value)
+  trimws(as.character(value))
 }
 
 
 is_active <- function(value) {
-  value <- clean_utf8(value)
-
-  if (is.na(value)) {
-    return(FALSE)
-  }
-
-  normalized <- tolower(
-    trimws(
-      as.character(value)
-    )
-  )
-
-  normalized %in% c(
-    "1",
-    "true",
-    "yes",
-    "y",
-    "active"
+  tolower(optional_text(value)) %in% c(
+    "1", "true", "yes", "y", "active", "on"
   )
 }
 
 
 is_truthy <- function(value) {
-  value <- clean_utf8(value)
+  tolower(optional_text(value)) %in% c(
+    "1", "true", "yes", "y", "on"
+  )
+}
 
-  if (is.na(value)) {
-    return(FALSE)
+
+validate_unique_ids <- function(
+  ids,
+  field_name,
+  filename
+) {
+  duplicate_ids <- unique(
+    ids[duplicated(ids)]
+  )
+
+  if (length(duplicate_ids) > 0L) {
+    stop(
+      filename,
+      " contains duplicate ",
+      field_name,
+      " values: ",
+      paste(duplicate_ids, collapse = ", "),
+      call. = FALSE
+    )
   }
 
-  normalized <- tolower(
-    trimws(
-      as.character(value)
-    )
-  )
-
-  normalized %in% c(
-    "1",
-    "true",
-    "yes",
-    "y",
-    "on"
-  )
+  invisible(TRUE)
 }
 
 
@@ -253,70 +222,74 @@ node_content <- read_configuration_csv(
 
 
 # ============================================================
-# REQUIRED COLUMNS
+# NORMALIZE ALTERNATIVE ARCHETYPE HEADINGS
 # ============================================================
 
-# check.names = TRUE converts spaces and punctuation in column
-# names to dots.
-required_curveball_columns <- c(
-  "CurveballID",
-  "PoolNumber",
-  "Category",
-  "PoolPosition",
-  "Title",
-  "Body",
-  "Active"
-)
+# check.names = TRUE converts headings such as
+# "Core Strengths" into "Core.Strengths".
+#
+# Accept either:
+# "Inherent Strategic Trade-off"
+# "Inherent Trade-off"
 
-required_archetype_columns <- c(
-  "ArchetypeID",
-  "Title",
-  "Philosophy",
-  "Core.Strengths",
-  "Inherent.Strategic.Trade.off",
-  "Midpoint.Diagnostic.Text",
-  "Final.Debrief.Text",
-  "Active"
-)
-
-required_setting_columns <- c(
-  "Setting",
-  "Value",
-  "Active"
-)
-
-required_node_content_columns <- c(
-  "QID",
-  "Title",
-  "Body"
-)
+if (
+  !"Inherent.Strategic.Trade.off" %in% names(archetypes) &&
+  "Inherent.Trade.off" %in% names(archetypes)
+) {
+  names(archetypes)[
+    names(archetypes) == "Inherent.Trade.off"
+  ] <- "Inherent.Strategic.Trade.off"
+}
 
 
 # ============================================================
-# VALIDATE COLUMNS
+# VALIDATE REQUIRED COLUMNS
 # ============================================================
 
 validate_columns(
   curveballs,
-  required_curveball_columns,
+  c(
+    "CurveballID",
+    "Category",
+    "Title",
+    "Body",
+    "Active"
+  ),
   "curveballs.csv"
 )
 
 validate_columns(
   archetypes,
-  required_archetype_columns,
+  c(
+    "ArchetypeID",
+    "Title",
+    "Philosophy",
+    "Core.Strengths",
+    "Inherent.Strategic.Trade.off",
+    "Midpoint.Diagnostic.Text",
+    "Final.Debrief.Text",
+    "Active"
+  ),
   "archetypes.csv"
 )
 
 validate_columns(
   settings,
-  required_setting_columns,
+  c(
+    "Setting",
+    "Value",
+    "Active"
+  ),
   "settings.csv"
 )
 
 validate_columns(
   node_content,
-  required_node_content_columns,
+  c(
+    "QID",
+    "Title",
+    "Body"
+  ),
   "nodetitle_body.csv"
 )
 
@@ -326,34 +299,31 @@ validate_columns(
 # ============================================================
 
 curveballs <- curveballs[
-  vapply(
-    curveballs$Active,
-    is_active,
-    logical(1)
-  ),
+  vapply(curveballs$Active, is_active, logical(1)),
   ,
   drop = FALSE
 ]
 
 archetypes <- archetypes[
-  vapply(
-    archetypes$Active,
-    is_active,
-    logical(1)
-  ),
+  vapply(archetypes$Active, is_active, logical(1)),
   ,
   drop = FALSE
 ]
 
 settings <- settings[
-  vapply(
-    settings$Active,
-    is_active,
-    logical(1)
-  ),
+  vapply(settings$Active, is_active, logical(1)),
   ,
   drop = FALSE
 ]
+
+# Node content may optionally include an Active column.
+if ("Active" %in% names(node_content)) {
+  node_content <- node_content[
+    vapply(node_content$Active, is_active, logical(1)),
+    ,
+    drop = FALSE
+  ]
+}
 
 
 # ============================================================
@@ -367,23 +337,46 @@ setting_names <- vapply(
 )
 
 development_rows <- settings[
-  tolower(setting_names) ==
-    "developmentmode",
+  tolower(setting_names) == "developmentmode",
   ,
   drop = FALSE
 ]
 
 if (nrow(development_rows) != 1L) {
   stop(
-    paste(
-      "settings.csv must contain exactly one active",
-      "DevelopmentMode row."
-    )
+    "settings.csv must contain exactly one active ",
+    "DevelopmentMode row.",
+    call. = FALSE
+  )
+}
+
+development_value <- tolower(
+  required_text(
+    development_rows$Value[[1]],
+    "DevelopmentMode Value",
+    development_rows$.csv_row[[1]],
+    "settings.csv"
+  )
+)
+
+if (
+  !development_value %in% c(
+    "true", "false",
+    "1", "0",
+    "yes", "no",
+    "y", "n",
+    "on", "off"
+  )
+) {
+  stop(
+    "DevelopmentMode must be TRUE or FALSE ",
+    "(or an equivalent supported value).",
+    call. = FALSE
   )
 }
 
 development_mode <- is_truthy(
-  development_rows$Value[[1]]
+  development_value
 )
 
 settings_record <- list(
@@ -397,95 +390,66 @@ settings_record <- list(
 
 if (nrow(curveballs) == 0L) {
   stop(
-    "curveballs.csv contains no active curveballs."
+    "curveballs.csv contains no active curveballs.",
+    call. = FALSE
   )
 }
 
-pool_numbers <- suppressWarnings(
-  as.integer(curveballs$PoolNumber)
-)
-
-pool_positions <- suppressWarnings(
-  as.integer(curveballs$PoolPosition)
-)
-
-if (any(is.na(pool_numbers))) {
-  stop(
-    "curveballs.csv contains an invalid PoolNumber."
-  )
-}
-
-if (any(is.na(pool_positions))) {
-  stop(
-    "curveballs.csv contains an invalid PoolPosition."
-  )
-}
-
-curveball_categories <- vapply(
-  curveballs$Category,
-  optional_text,
-  character(1)
-)
-
-curveballs <- curveballs[
-  order(
-    pool_numbers,
-    curveball_categories,
-    pool_positions
-  ),
-  ,
-  drop = FALSE
-]
+# IMPORTANT:
+# Preserve CSV row order.
+# Group assignment depends on the curveball array order.
+# Do not sort by Category, Title, or CurveballID.
 
 curveball_records <- lapply(
   seq_len(nrow(curveballs)),
   function(i) {
-    row <- curveballs[
-      i,
-      ,
-      drop = FALSE
-    ]
+    row <- curveballs[i, , drop = FALSE]
+    csv_row <- row$.csv_row[[1]]
 
     list(
       curveballID = required_text(
-        row[["CurveballID"]][[1]],
+        row$CurveballID[[1]],
         "CurveballID",
-        i + 1L,
+        csv_row,
         "curveballs.csv"
-      ),
-
-      poolNumber = as.integer(
-        row[["PoolNumber"]][[1]]
       ),
 
       category = required_text(
-        row[["Category"]][[1]],
+        row$Category[[1]],
         "Category",
-        i + 1L,
+        csv_row,
         "curveballs.csv"
       ),
 
-      poolPosition = as.integer(
-        row[["PoolPosition"]][[1]]
-      ),
-
       title = required_text(
-        row[["Title"]][[1]],
+        row$Title[[1]],
         "Title",
-        i + 1L,
+        csv_row,
         "curveballs.csv"
       ),
 
       body = required_text(
-        row[["Body"]][[1]],
+        row$Body[[1]],
         "Body",
-        i + 1L,
+        csv_row,
         "curveballs.csv"
       ),
 
       active = TRUE
     )
   }
+)
+
+curveball_ids <- vapply(
+  curveball_records,
+  function(record) record$curveballID,
+  character(1)
+)
+
+validate_unique_ids(
+  curveball_ids,
+  "CurveballID",
+  "curveballs.csv"
 )
 
 
@@ -501,78 +465,47 @@ expected_archetype_ids <- c(
   "archetype_e"
 )
 
-if (nrow(archetypes) != 5L) {
-  stop(
-    paste0(
-      "Expected 5 active archetypes but found ",
-      nrow(archetypes),
-      "."
-    )
-  )
-}
-
 actual_archetype_ids <- vapply(
   seq_len(nrow(archetypes)),
   function(i) {
     required_text(
       archetypes$ArchetypeID[[i]],
       "ArchetypeID",
-      i + 1L,
+      archetypes$.csv_row[[i]],
       "archetypes.csv"
     )
   },
   character(1)
 )
 
-duplicate_archetype_ids <- unique(
-  actual_archetype_ids[
-    duplicated(actual_archetype_ids)
-  ]
+validate_unique_ids(
+  actual_archetype_ids,
+  "ArchetypeID",
+  "archetypes.csv"
 )
 
-if (length(duplicate_archetype_ids) > 0L) {
-  stop(
-    paste0(
-      "Duplicate ArchetypeID values: ",
-      paste(
-        duplicate_archetype_ids,
-        collapse = ", "
-      )
-    )
-  )
-}
-
-missing_archetype_ids <- setdiff(
+missing_ids <- setdiff(
   expected_archetype_ids,
   actual_archetype_ids
 )
 
-if (length(missing_archetype_ids) > 0L) {
-  stop(
-    paste0(
-      "Missing expected ArchetypeID values: ",
-      paste(
-        missing_archetype_ids,
-        collapse = ", "
-      )
-    )
-  )
-}
-
-unexpected_archetype_ids <- setdiff(
+unexpected_ids <- setdiff(
   actual_archetype_ids,
   expected_archetype_ids
 )
 
-if (length(unexpected_archetype_ids) > 0L) {
+if (
+  length(missing_ids) > 0L ||
+  length(unexpected_ids) > 0L
+) {
   stop(
-    paste0(
-      "Unexpected ArchetypeID values: ",
-      paste(
-        unexpected_archetype_ids,
-        collapse = ", "
-      )
-    )
+    "archetypes.csv must contain the five IDs ",
+    "archetype_a through archetype_e.",
+    "\nMissing: ",
+    paste(missing_ids, collapse = ", "),
+    "\nUnexpected: ",
+    paste(unexpected_ids, collapse = ", "),
+    call. = FALSE
   )
 }
 
@@ -588,70 +521,46 @@ archetypes <- archetypes[
 archetype_records <- lapply(
   seq_len(nrow(archetypes)),
   function(i) {
-    row <- archetypes[
-      i,
-      ,
-      drop = FALSE
-    ]
+    row <- archetypes[i, , drop = FALSE]
+    csv_row <- row$.csv_row[[1]]
+
+    read_field <- function(column_name) {
+      required_text(
+        row[[column_name]][[1]],
+        column_name,
+        csv_row,
+        "archetypes.csv"
+      )
+    }
 
     list(
-      archetypeID = required_text(
-        row[["ArchetypeID"]][[1]],
-        "ArchetypeID",
-        i + 1L,
-        "archetypes.csv"
+      archetypeID = read_field(
+        "ArchetypeID"
       ),
 
-      title = required_text(
-        row[["Title"]][[1]],
-        "Title",
-        i + 1L,
-        "archetypes.csv"
+      title = read_field(
+        "Title"
       ),
 
-      philosophy = required_text(
-        row[["Philosophy"]][[1]],
-        "Philosophy",
-        i + 1L,
-        "archetypes.csv"
+      philosophy = read_field(
+        "Philosophy"
       ),
 
-      coreStrengths = required_text(
-        row[["Core.Strengths"]][[1]],
-        "Core Strengths",
-        i + 1L,
-        "archetypes.csv"
+      coreStrengths = read_field(
+        "Core.Strengths"
       ),
 
-      inherentStrategicTradeoff =
-        required_text(
-          row[[
-            "Inherent.Strategic.Trade.off"
-          ]][[1]],
-          "Inherent Strategic Trade-off",
-          i + 1L,
-          "archetypes.csv"
-        ),
+      inherentStrategicTradeoff = read_field(
+        "Inherent.Strategic.Trade.off"
+      ),
 
-      midpointDiagnosticText =
-        required_text(
-          row[[
-            "Midpoint.Diagnostic.Text"
-          ]][[1]],
-          "Midpoint Diagnostic Text",
-          i + 1L,
-          "archetypes.csv"
-        ),
+      midpointDiagnosticText = read_field(
+        "Midpoint.Diagnostic.Text"
+      ),
 
-      finalDebriefText =
-        required_text(
-          row[[
-            "Final.Debrief.Text"
-          ]][[1]],
-          "Final Debrief Text",
-          i + 1L,
-          "archetypes.csv"
-        ),
+      finalDebriefText = read_field(
+        "Final.Debrief.Text"
+      ),
 
       active = TRUE
     )
@@ -665,61 +574,57 @@ archetype_records <- lapply(
 
 if (nrow(node_content) == 0L) {
   stop(
-    "nodetitle_body.csv contains no rows."
+    "nodetitle_body.csv contains no active rows.",
+    call. = FALSE
   )
 }
 
 nodes_by_qid <- list()
 
 for (i in seq_len(nrow(node_content))) {
-  row <- node_content[
-    i,
-    ,
-    drop = FALSE
-  ]
+  row <- node_content[i, , drop = FALSE]
+  csv_row <- row$.csv_row[[1]]
 
   qid <- required_text(
-    row[["QID"]][[1]],
+    row$QID[[1]],
     "QID",
-    i + 1L,
+    csv_row,
     "nodetitle_body.csv"
   )
 
   if (!is.null(nodes_by_qid[[qid]])) {
     stop(
-      paste0(
-        "nodetitle_body.csv contains duplicate QID: ",
-        qid
-      )
+      "nodetitle_body.csv contains duplicate QID: ",
+      qid,
+      call. = FALSE
     )
   }
 
   nodes_by_qid[[qid]] <- list(
     title = required_text(
-      row[["Title"]][[1]],
+      row$Title[[1]],
       "Title",
-      i + 1L,
+      csv_row,
       "nodetitle_body.csv"
     ),
 
-    body = required_text(
-      row[["Body"]][[1]],
-      "Body",
-      i + 1L,
-      "nodetitle_body.csv"
+    # Body may be blank when the title contains the full prompt.
+    body = optional_text(
+      row$Body[[1]]
     )
   )
 }
 
 
 # ============================================================
-# BUILD OUTPUT
+# BUILD AND WRITE OUTPUT
 # ============================================================
 
 output <- list(
   version = format(
     Sys.time(),
-    "%Y-%m-%d-%H%M%S"
+    "%Y-%m-%d-%H%M%S",
+    tz = "UTC"
   ),
 
   generatedAt = format(
@@ -737,11 +642,6 @@ output <- list(
   nodesByQID = nodes_by_qid
 )
 
-
-# ============================================================
-# WRITE CONTENT.JSON
-# ============================================================
-
 jsonlite::write_json(
   output,
   path = "content.json",
@@ -757,15 +657,13 @@ jsonlite::write_json(
 
 cat(
   "Created content.json\n",
-  "Development mode:",
-  development_mode,
-  "\nCurveballs:",
-  length(curveball_records),
-  "\nArchetypes:",
-  length(archetype_records),
-  "\nNode questions:",
-  length(nodes_by_qid),
+  "Version:", output$version,
+  "\nDevelopment mode:", development_mode,
+  "\nCurveballs:", length(curveball_records),
+  "\nArchetypes:", length(archetype_records),
+  "\nNode questions:", length(nodes_by_qid),
   "\n"
 )
-```
 
+
+```
