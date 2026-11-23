@@ -23,7 +23,7 @@ The percentage is calculated as:
 
 **Earned points ÷ maximum available points across completed nodes × 100**
 
-The display explains that these results describe decision patterns—not a grade or a single correct strategy. Lower scores may reflect tradeoffs in favor of other priorities.
+The display explains that these results describe decision patterns. Lower scores may reflect tradeoffs in favor of other priorities.
 
 ## Midpoint and Final Feedback
 
@@ -33,17 +33,3 @@ The display explains that these results describe decision patterns—not a grade
 | After the final recommendation | Strategic profile and final archetype debrief connecting the team's decisions to implementation priorities |
 
 The final archetype may differ from the midpoint classification as participants make additional decisions.
-
-## Content and Technical Behavior
-
-Profile percentages are calculated from cumulative response scores, the completed-node ledger, and the scoring configuration.
-
-Archetype titles and narratives are maintained in the source spreadsheet and loaded from `content.json`. Midpoint and final profile IDs should be stored separately.
-
-The display provides text equivalents and accessible meter labels. If scores or configuration mappings are invalid, it shows an error rather than presenting misleading results.
-
-## Production and Development Modes
-
-The strategic profile percentages and point totals are intentional participant-facing feedback.
-
-Development mode may additionally show technical identifiers, configuration versions, classification calculations, and troubleshooting details. Those technical diagnostics remain hidden in production.
