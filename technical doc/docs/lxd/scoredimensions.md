@@ -10,4 +10,3 @@ Each decision affects one or more of five dimensions.
 | Resourcefulness | Ability to use available resources, partnerships, pilots, and adaptive approaches effectively |
 
 * Each choice is associated with a particular set of scores, and those scores are cumulative. They are not shown to students, (see the hidden methodology reference page), but the cumulative score is used at the end to determine the person/group's archetype.
-* 
