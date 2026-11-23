@@ -5,7 +5,6 @@
   * [Simulation Structure](lxd/simstructure.md)
   * [Decision Methodology](lxd/decisionmethodology.md)
   * [Scoring Dimensions](lxd/scoredimensions.md)
-  * [Strategic-State Variables](lxd/statevariableobjectives.md)
   * [Curveballs](lxd/curveballs.md)
   * [Archetypes](lxd/archetypes.md)
   
