@@ -49,8 +49,6 @@ required_columns <- c(
   "StrategicDecisiveness",
   "StakeholderTrust",
   "Resourcefulness",
-  "StateField",
-  "StateValue"
 )
 
 missing_columns <- setdiff(
@@ -228,26 +226,9 @@ for (i in seq_len(nrow(scores))) {
     )
   }
 
-  state_field <- optional_text(
-    row$StateField[[1]]
-  )
 
-  state_value <- optional_text(
-    row$StateValue[[1]]
-  )
 
-  # StateField and StateValue must either both be present
-  # or both be blank.
-  if (nzchar(state_field) != nzchar(state_value)) {
-    stop(
-      "scores.csv row ",
-      csv_row,
-      ": StateField and StateValue must both be ",
-      "populated or both be blank.",
-      call. = FALSE
-    )
-  }
-
+ 
   # Optional display text.
   title <- if ("Title" %in% names(scores)) {
     optional_text(row$Title[[1]])
@@ -284,9 +265,7 @@ for (i in seq_len(nrow(scores))) {
       "Resourcefulness"
     ),
 
-    stateField = state_field,
-    stateValue = state_value,
-
+   
     title = title,
     body = body
   )
