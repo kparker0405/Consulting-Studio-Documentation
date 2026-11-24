@@ -48,7 +48,7 @@ required_columns <- c(
   "CriticalRigor",
   "StrategicDecisiveness",
   "StakeholderTrust",
-  "Resourcefulness",
+  "Resourcefulness"
 )
 
 missing_columns <- setdiff(
