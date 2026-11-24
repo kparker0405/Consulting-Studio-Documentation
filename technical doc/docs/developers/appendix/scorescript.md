@@ -1,6 +1,6 @@
 **Scores Conversion Script**
 
-Run this code from the folder containing the CSV. You may need to install jsonlite by running:
+Run this code from the folder containing the CSV. 
 ```
 install.packages("jsonlite")
 # ============================================================
