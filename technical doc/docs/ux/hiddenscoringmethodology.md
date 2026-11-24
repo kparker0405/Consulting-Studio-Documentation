@@ -1,6 +1,6 @@
 # Scoring and Archetype Methodology
 
-The scoring model describes the strategic behaviors demonstrated by participants’ choices. It is designed for reflection and debrief.
+The scoring model describes the strategic behaviors demonstrated by participants’ choices. It supports reflection and debrief.
 
 ## Five-Dimension Rubric
 
@@ -24,8 +24,6 @@ Scores use a common behavioral scale:
 
 Questions do not need to test every dimension equally. When a question provides no evidence for a dimension, all choices receive zero in that dimension. This avoids awarding artificial credit.
 
-Choices should reflect meaningful tradeoffs. Administrators should review questions where one option dominates every dimension or all options produce nearly identical profiles.
-
 ## Dimension Normalization
 
 Cumulative scores are normalized separately:
@@ -34,24 +32,45 @@ Cumulative scores are normalized separately:
 
 The maximum is the sum of the highest available choice score for that dimension at each completed node.
 
-The five maxima may come from different, mutually incompatible choices. Therefore, percentages describe dimension-specific evidence—not progress toward one achievable “perfect strategy.”
-
 ## Archetype Classification
 
-The model combines minimum qualification rules with [closest-profile matching](lxd/archetypes.md).
+The model uses **pair-strength comparison** to identify the approaches most closely reflected in participants’ decisions. Each [archetype](lxd/archetypes.md) is associated with two defining dimensions.
 
-A profile qualifies when both defining dimensions reach the configured threshold.
+| Approach | Archetype strength calculation |
+|---|---|
+| Enterprise Growth | Average of Enterprise Impact and Strategic Decisiveness percentages |
+| Community Anchor | Average of Critical Rigor and Stakeholder Trust percentages |
+| Phased Innovation | Average of Critical Rigor and Resourcefulness percentages |
+| Yield & Value Maximization | Average of Enterprise Impact and Critical Rigor percentages |
 
-Among qualifying approaches, the simulation selects the closest faculty-defined target profile using squared distance across all five normalized dimensions:
+The four strengths are ranked from highest to lowest. These values are classification indices only.
 
-**Distance = sum of (participant dimension − target dimension)²**
+### Clear and Blended Approaches
 
-If no approach qualifies, the simulation assigns **The Unaligned Agency**. This indicates that the configured qualification criteria were not met; it should not be treated as proof of poor teamwork or passive behavior without reviewing the decision logs.
+The difference between the highest and second-highest strengths determines how the result is described.
 
-Exact ties use a documented tie-breaker. 
+| Lead margin | Interpretation |
+|---|---|
+| At least 5 percentage points | Clear primary approach |
+| Greater than 0 but less than 5 percentage points | Primary approach with a strong secondary emphasis |
+| Exactly 0 | Joint leading approaches |
+
+The five-percentage-point rule is an interpretive convention. A close result is presented as a blended profile. 
+
+### The Unaligned Agency
+
+The Unaligned Agency is evaluated separately before comparing the four approach strengths.
+
+For the pilot, this diagnostic applies only when all three conditions are met:
+
+- Strategic Decisiveness is below 50%.
+- Critical Rigor is below 50%.
+- Resourcefulness is below 50%.
+
+This provisional rule identifies a profile with less demonstrated evidence of clear action, analytical grounding, and effective support use. It does not establish that the team was passive, poorly coordinated, or without strengths. Faculty should interpret the result alongside decision logs and recommendations.
 
 ## Midpoint and Final Use
 
-The midpoint diagnostic uses decisions completed through that point. The final classification uses the completed engagement.
+The midpoint diagnostic uses decisions completed through Level 2. The final classification uses decisions completed across the engagement.
 
-Both identify strategic tendencies and tradeoffs. A team’s final approach may differ from its midpoint profile.
+Both identify strategic tendencies and associated tradeoffs. A team’s final approach may differ from its midpoint profile.
